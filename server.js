@@ -7,31 +7,29 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 
-function decodeBATCHCode(code) {
-  var year = parseInt(code.substr(1, 2));
-  var week = parseInt(code.substr(3, 2));
-  var dayOfWeek = parseInt(code.substr(5, 1));
+function decodeBatchCode(batchCode) {
+  const letter = batchCode[0];
+  const year = parseInt(batchCode.substr(1, 2));
+  const week = parseInt(batchCode.substr(3, 2));
+  const day = parseInt(batchCode.substr(5));
 
-  var now = new Date();
-  var currentYear = now.getFullYear();
-  var currentMonth = now.getMonth();
-  var currentDate = now.getDate();
-  var currentDayOfWeek = now.getDay();
+  // Determine the date based on the year, week, and day
+  const startOfYear = new Date(year + 2000, 0, 1);
+  const startOfWeek = new Date(startOfYear.getTime() + (week - 1) * 7 * 24 * 60 * 60 * 1000);
+  const targetDate = new Date(startOfWeek.getTime() + (day - 1) * 24 * 60 * 60 * 1000);
 
-  var date = new Date(currentYear, 0, 1); // Set the date to the first day of the current year
+  const yearStr = targetDate.getFullYear().toString().padStart(4, '0');
+  const monthStr = (targetDate.getMonth() + 1).toString().padStart(2, '0');
+  const dayStr = targetDate.getDate().toString().padStart(2, '0');
 
-  // Adjust the date to the corresponding week and day
-  date.setDate(date.getDate() + (week - 1) * 7 + (dayOfWeek));
-
-  // Adjust the date to the corresponding year
-  if (date.getMonth() > currentMonth || (date.getMonth() === currentMonth && date.getDate() > currentDate)) {
-    date.setFullYear(currentYear - 1);
-  } else {
-    date.setFullYear(currentYear);
-  }
-
-  return date;
+  return `${yearStr}-${monthStr}-${dayStr}`;  // Format the date as desired
 }
+
+// Example usage
+const batchCode = 'XAABBC';
+const decodedDate = decodeBatchCode(batchCode);
+console.log(decodedDate);
+
 
 function addThreeYears(date) {
     var newDate = new Date(date);
