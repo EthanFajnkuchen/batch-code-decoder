@@ -1,11 +1,10 @@
 const express = require("express");
 const app = express();
 const https = require("https");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const exp = require("constants");
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-
 
 function decodeBatchCode(batchCode) {
   const letter = batchCode[0];
@@ -15,54 +14,44 @@ function decodeBatchCode(batchCode) {
 
   // Determine the date based on the year, week, and day
   const startOfYear = new Date(year + 2000, 0, 1);
-  const startOfWeek = new Date(startOfYear.getTime() + (week - 1) * 7 * 24 * 60 * 60 * 1000);
-  const targetDate = new Date(startOfWeek.getTime() + (day - 1) * 24 * 60 * 60 * 1000);
-
-  const yearStr = targetDate.getFullYear().toString().padStart(4, '0');
-  const monthStr = (targetDate.getMonth() + 1).toString().padStart(2, '0');
-  const dayStr = targetDate.getDate().toString().padStart(2, '0');
-
-  return `${yearStr}-${monthStr}-${dayStr}`;  // Format the date as desired
+  const startOfWeek = new Date(
+    startOfYear.getTime() + (week - 1) * 7 * 24 * 60 * 60 * 1000
+  );
+  const targetDate = new Date(
+    startOfWeek.getTime() + (day - 1) * 24 * 60 * 60 * 1000
+  );
+  return targetDate;
 }
 
-// Example usage
-const batchCode = 'XAABBC';
-const decodedDate = decodeBatchCode(batchCode);
-console.log(decodedDate);
-
-
 function addThreeYears(date) {
-    var newDate = new Date(date);
-    newDate.setFullYear(newDate.getFullYear() + 3);
-    newDate.setDate(newDate.getDate() - 1);
-    return newDate;
-  }
-  
-  
+  var newDate = new Date(date);
+  newDate.setFullYear(newDate.getFullYear() + 3);
+  newDate.setDate(newDate.getDate() - 1);
+  return newDate;
+}
 
-app.get("/", function(req,res) {
-    res.sendFile(__dirname + "/public/index.html");
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/public/index.html");
 });
 
-
-app.post("/", function(req,res) {
-    const formData = req.body;
-    let tableRows = '';
-    if (Object.keys(req.body).length === 0) {
-      res.send("<h1>No Batch Code entered!</h1>")
-    }
-    for (const [name,value] of Object.entries(formData)) {
-        let production_date = decodeBATCHCode(value);
-        let expiration_date = addThreeYears(production_date);
-        tableRows += `
+app.post("/", function (req, res) {
+  const formData = req.body;
+  let tableRows = "";
+  if (Object.keys(req.body).length === 0) {
+    res.send("<h1>No Batch Code entered!</h1>");
+  }
+  for (const [name, value] of Object.entries(formData)) {
+    let production_date = decodeBatchCode(value);
+    let expiration_date = addThreeYears(production_date);
+    tableRows += `
         <tr>
           <td>${value}</td>
-          <td>${production_date.toLocaleDateString('en-GB')}</td>
-          <td>${expiration_date.toLocaleDateString('en-GB')}</td>
+          <td>${production_date.toLocaleDateString("fr-FR")}</td>
+          <td>${expiration_date.toLocaleDateString("efr-FR")}</td>
         </tr>`;
-    }
-  
-    const tableHtml = `
+  }
+
+  const tableHtml = `
     <style>
       table {
         border-collapse: collapse;
@@ -92,12 +81,9 @@ app.post("/", function(req,res) {
       </tbody>
     </table>`;
 
-  
-    res.send(tableHtml);
-})
-
-
-app.listen(3000, () => {
-    console.log("Server running on port 3000");
+  res.send(tableHtml);
 });
 
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
