@@ -43,9 +43,6 @@ cd batch-code-decoder
 ```bash
 node server.js 
 ```
-or 
-
-
 
   <h2>Dependencies</h2>
   <p>
