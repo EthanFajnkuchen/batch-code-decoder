@@ -21,12 +21,6 @@
       input and display relevant information about the product.</li>
   </ol>
 
-  <h2>Repository</h2>
-  <p>
-    The source code for the batch code decoder can be found in the GitHub repository:
-    <a href="https://github.com/your-username/batch-code-decoder">Batch Code Decoder Repository</a>
-  </p>
-
   <h2>Dependencies</h2>
   <p>
     This project uses the following Node.js modules: 
