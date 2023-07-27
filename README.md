@@ -10,16 +10,42 @@
     and get information about the product's production date and other relevant data.
   </p>
 
-  <h2>How to Use</h2>
-  <p>
-    You can access the batch code decoder application online at the following link:
-    <a href="https://potent-alive-trunk.glitch.me/">Batch Code Decoder - Live Demo</a>
-  </p>
-  <ol>
-    <li>Open the link above in your web browser.</li>
-    <li>Enter the batch code in the provided input field and click the "Decode" button. The application will process the
-      input and display relevant information about the product.</li>
-  </ol>
+<h2>How to Use</h2>
+<p>
+  You have two options for using the batch code decoder:
+</p>
+<ol>
+  <li>Access the batch code decoder application online at the following link:
+    <a href="https://potent-alive-trunk.glitch.me/">Batch Code Decoder - Live Demo</a>. Enter the batch code in the provided
+    input field and click the "Decode" button. The application will process the input and display relevant information
+    about the product.</li>
+  <li>Clone the repository to your local machine to run the batch code decoder locally:</li>
+</ol>
+
+### Clone the Repository
+
+1. Open a terminal or command prompt.
+
+2. Clone the repository to your local environment using the following command:
+
+```bash
+git clone https://github.com/EthanFajnkuchen/batch-code-decoder
+```
+
+3. Navigate to the project's root directory:
+
+```bash
+cd batch-code-decoder
+```
+
+4. Start the server:
+
+```bash
+node server.js 
+```
+or 
+
+
 
   <h2>Dependencies</h2>
   <p>
