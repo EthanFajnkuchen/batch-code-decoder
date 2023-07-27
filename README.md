@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <title>Batch Code Decoder for Cosmetic Products</title>
-</head>
-
 <body>
   <h1>Batch Code Decoder for Cosmetic Products</h1>
   <p>
